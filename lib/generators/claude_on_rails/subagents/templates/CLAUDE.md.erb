@@ -1,0 +1,75 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+This is a <%= @api_only ? 'API-only' : 'full-stack' %> Rails application using <%= @test_framework || 'Rails default testing' %>.
+
+## Claude on Rails Subagents
+
+This project has Rails development subagents configured in `.claude/agents/`. 
+The `rails-architect` subagent orchestrates specialized agents for different Rails domains.
+
+To start Rails development, mention "rails-architect" or describe what you want to build.
+
+## Common Development Commands
+
+### Running the Application
+```bash
+rails server
+# or
+rails s
+```
+
+### Database Commands
+```bash
+rails db:create
+rails db:migrate
+rails db:seed
+rails db:rollback
+```
+
+### Testing
+```bash
+<% if @test_framework == 'RSpec' %>
+# Run all tests
+bundle exec rspec
+
+# Run specific test file
+bundle exec rspec spec/models/user_spec.rb
+
+# Run tests matching a pattern
+bundle exec rspec spec/models
+<% else %>
+# Run all tests
+rails test
+
+# Run specific test file
+rails test test/models/user_test.rb
+
+# Run specific test
+rails test test/models/user_test.rb:15
+<% end %>
+```
+
+### Console
+```bash
+rails console
+# or
+rails c
+```
+
+### Routes
+```bash
+rails routes
+# or search for specific routes
+rails routes | grep user
+```
+
+## Development Workflow
+
+1. Use Claude on Rails subagents for feature development
+2. Run tests frequently during development
+3. Check routes when adding new endpoints
+4. Use Rails console for debugging and data inspection

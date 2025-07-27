@@ -8,6 +8,22 @@ module ClaudeOnRails
     class SwarmGenerator < Rails::Generators::Base
       source_root File.expand_path('templates', __dir__)
 
+      def deprecation_notice
+        say '⚠️  DEPRECATION WARNING', :yellow
+        say 'The swarm generator is deprecated and will be removed in a future version.', :yellow
+        say 'Please use the new subagents generator instead:', :yellow
+        say '  rails generate claude_on_rails:subagents', :cyan
+        say ''
+
+        if yes?('Would you like to run the new subagents generator instead? (Y/n)', :green)
+          invoke 'claude_on_rails:subagents', options
+          exit 0
+        else
+          say 'Continuing with deprecated swarm generator...', :yellow
+          say ''
+        end
+      end
+
       class_option :api_only, type: :boolean, default: false,
                               desc: 'Generate swarm for API-only Rails application'
 

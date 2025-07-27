@@ -10,17 +10,17 @@ Instead of managing personas manually, ClaudeOnRails automatically orchestrates 
 
 ## How It Works
 
-ClaudeOnRails creates a team of specialized AI agents:
+ClaudeOnRails leverages Claude Code's native subagent feature to create a team of specialized AI agents:
 
-- **Architect**: Coordinates development and makes high-level decisions
-- **Models**: Handles ActiveRecord, migrations, and database design
-- **Controllers**: Manages routing and request handling
-- **Views**: Creates UI templates and manages assets
-- **Services**: Implements business logic and service objects
-- **Tests**: Ensures comprehensive test coverage
-- **DevOps**: Handles deployment and infrastructure
+- **rails-architect**: Orchestrates development and coordinates other specialists
+- **rails-models**: Handles ActiveRecord, migrations, and database design
+- **rails-controllers**: Manages routing and request handling
+- **rails-views**: Creates UI templates and manages assets
+- **rails-services**: Implements business logic and service objects
+- **rails-tests**: Ensures comprehensive test coverage
+- **rails-devops**: Handles deployment and infrastructure
 
-Each agent works in their specific domain (directory) and can collaborate with other agents to implement complex features.
+The architect subagent automatically delegates work to appropriate specialists based on your request.
 
 ## Installation
 
@@ -36,53 +36,52 @@ Then run:
 
 ```bash
 bundle install
-rails generate claude_on_rails:swarm
+rails generate claude_on_rails:subagents
 ```
 
 During generation, you'll be offered to set up Rails MCP Server for enhanced documentation access. Simply press Y when prompted!
 
 This will:
 - Analyze your Rails project structure
-- Optionally set up Rails MCP Server (recommended)
-- Generate a customized swarm configuration
-- Create agent-specific prompts
-- Set up your development environment
+- Create Claude Code subagents in `.claude/agents/`
+- Configure the rails-architect orchestrator
+- Set up specialized subagents based on your project type
+- Update or create CLAUDE.md with usage instructions
 
 For detailed setup instructions, see [SETUP.md](./SETUP.md).
 
 ## Usage
 
-### Start Your Development Swarm
+### Claude Code Subagents
 
-```bash
-# In your Rails project directory
-claude-swarm
-```
-
-### Natural Language Development
-
-Once the swarm is running, just describe what you want to build in the Claude interface:
+After running the generator, simply open your Rails project in Claude Code and describe what you want to build:
 
 ```
-> Add user authentication with email confirmation
-[The architect coordinates the implementation across all agents]
-
-> Create a shopping cart with Stripe payment integration
-[Complex features are automatically broken down and implemented]
-
-> Optimize the dashboard - it's loading too slowly
-[Performance improvements across the stack]
-
-> Build a RESTful API for our mobile app with JWT auth
-[API development with authentication]
+Add user authentication with email confirmation
 ```
 
-The swarm automatically:
-- Analyzes your request
-- Delegates to appropriate specialists
-- Implements across all layers (models, controllers, views, tests)
-- Follows Rails best practices
-- Ensures test coverage
+The rails-architect subagent will automatically:
+- Analyze your request
+- Coordinate appropriate specialists using Claude Code's Task tool
+- Implement across all layers (models, controllers, views, tests)
+- Follow Rails best practices
+- Ensure test coverage
+
+### Example Interactions
+
+```
+Create a blog with comments and categories
+[rails-architect coordinates models, controllers, views, and tests specialists]
+
+Build a REST API for user management
+[rails-architect delegates to models, controllers, api, and tests specialists]
+
+Add real-time notifications using Turbo
+[rails-architect engages stimulus and controllers specialists]
+
+Optimize database queries for the dashboard
+[rails-architect works with models specialist on query optimization]
+```
 
 ## How It's Different
 
@@ -96,18 +95,18 @@ When using AI assistants for Rails development, you typically need to:
 ### ClaudeOnRails Approach
 With ClaudeOnRails, you simply describe what you want in natural language:
 ```
-> Create a user system with social login
+Create a user system with social login
 ```
 
-The swarm automatically:
+The rails-architect subagent automatically:
 - Creates models with proper validations and associations
-- Implements controllers with authentication logic
+- Implements controllers with authentication logic  
 - Builds views with forms and UI components
 - Adds comprehensive test coverage
 - Handles security considerations
 - Optimizes database queries
 
-All coordinated by specialized agents working together.
+All coordinated through Claude Code's native subagent system.
 
 ## Project Structure
 
@@ -115,48 +114,44 @@ After running the generator, you'll have:
 
 ```
 your-rails-app/
-├── claude-swarm.yml             # Swarm configuration
-├── CLAUDE.md                    # Project-specific Claude config (imports context.md)
-└── .claude-on-rails/
-    ├── context.md               # Rails project context imported by CLAUDE.md
-    └── prompts/                 # Agent-specific prompts
-        ├── architect.md
-        ├── models.md
-        ├── controllers.md
-        └── ...
+├── .claude/
+│   └── agents/                  # Claude Code subagents
+│       ├── rails-architect.md   # Main orchestrator
+│       ├── rails-models.md      # Database specialist
+│       ├── rails-controllers.md # Controllers specialist
+│       └── ...                  # Other specialists
+└── CLAUDE.md                    # Project guidance for Claude Code
 ```
 
 ## Customization
 
-### Swarm Configuration
+### Subagent Configuration
 
-The generated `claude-swarm.yml` can be customized:
+The generated subagents in `.claude/agents/` can be customized:
+- Edit the system prompts to add project-specific conventions
+- Modify tool access for specific agents
+- Add domain knowledge and coding standards
 
-```yaml
-instances:
-  architect:
-    description: "Your project-specific architect description"
-    connections: [models, controllers, custom_agent]
+### Creating Additional Subagents
 
-  custom_agent:
-    description: "Specialized agent for your domain"
-    directory: ./app/custom
-    prompt_file: .claude-on-rails/prompts/custom.md
+You can create custom subagents for your specific needs:
+
+```markdown
+---
+name: rails-analytics
+description: Analytics and reporting specialist for Rails applications
+tools: Read, Edit, Write, Bash, Grep
+---
+
+Your custom subagent prompt here...
 ```
-
-### Agent Prompts
-
-Customize agent behavior by editing prompts in `.claude-on-rails/prompts/`:
-- Add project-specific conventions
-- Include domain knowledge
-- Define coding standards
 
 ## Features
 
-- **Automatic Agent Selection**: No need to choose which persona to use
-- **Collaborative Implementation**: Agents work together like a real team
+- **Native Claude Code Integration**: Uses Claude Code's built-in subagent system
+- **Automatic Orchestration**: rails-architect coordinates specialists automatically
 - **Rails-Aware**: Deep understanding of Rails conventions and best practices
-- **Project Adaptation**: Detects your project structure and adapts accordingly
+- **Project Adaptation**: Detects your project structure and creates relevant agents
 - **Test-Driven**: Automatic test generation for all code
 - **Performance Focus**: Built-in optimization capabilities
 

@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- New `rails generate claude_on_rails:subagents` generator that creates Claude Code native subagents
+- Rails development subagents for all major Rails domains (models, controllers, views, etc.)
+- Automatic orchestration through the rails-architect subagent
+- Support for conditional subagents based on project type (API-only, GraphQL, Turbo/Stimulus)
+- Integration with Claude Code's Task tool for subagent coordination
+
+### Changed
+- Updated README to document the new subagent-based approach
+- Improved project structure documentation
+
+### Deprecated
+- The `rails generate claude_on_rails:swarm` generator is now deprecated in favor of subagents
+- The swarm generator shows a deprecation warning and offers to run the new subagents generator instead
+
 ## [0.2.1] - 2025-07-03
 
 ### Fixed
